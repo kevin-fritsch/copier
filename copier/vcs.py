@@ -102,11 +102,11 @@ def checkout_latest_tag(local_repo: StrOrPath, use_prereleases: OptBool = False)
     """
     with local.cwd(local_repo):
         all_tags = git("tag").split()
-        if not use_prereleases:
-            all_tags = filter(
-                lambda tag: not version.parse(tag).is_prerelease, all_tags
-            )
-        sorted_tags = sorted(all_tags, key=version.parse, reverse=True)
+        # if not use_prereleases:
+        #     all_tags = filter(
+        #         lambda tag: not version.parse(tag).is_prerelease, all_tags
+        #     )
+        sorted_tags = all_tags[::-1]
         try:
             latest_tag = str(sorted_tags[0])
         except IndexError:
